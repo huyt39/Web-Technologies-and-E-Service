@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <!-- thẻ meta viewport hỗ trợ thiết kế responsive -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- tiêu đề-->
+    <title>Cửa hàng Giày Thể Thao Taga</title>
+    
+    <!-- link css -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- header -->
+    <header>
+        <!-- tên cửa hàng -->
+        <h1>Cửa hàng Giày Thể Thao Taga</h1>
+        
+        <!-- thanh điều hướng -->
+        <nav>
+            <ul>
+                <li><a href="#">Trang chủ</a></li>
+                <li><a href="#">Sản phẩm</a></li>
+                <li><a href="#">Giới thiệu</a></li>
+                <li><a href="#">Liên hệ</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- main -->
+    <main>
+        <!-- section giới thiệu về cửa hàng -->
+        <section>
+            <h2>Chào mừng đến với Taga</h2>
+            <p>
+                Chúng tôi chuyên cung cấp các dòng giày thể thao chất lượng cao, 
+                phù hợp cho mọi hoạt động từ chạy bộ, tập gym đến các môn thể thao chuyên nghiệp. 
+                Với cam kết mang đến sản phẩm chính hãng và dịch vụ tận tâm, 
+                Taga là địa chỉ tin cậy cho người yêu thể thao.
+            </p>
+        </section>
+
+        <!--section danh sách sản phẩm -->
+        <section id="product-list">
+            <h2>Sản phẩm nổi bật</h2>
+            
+            <!-- ô tìm kiếm và nút tìm -->
+            <div style="margin-bottom: 20px; flex-basis: 100%;">
+                <input type="text" id="searchInput" placeholder="Tìm kiếm sản phẩm...">
+                <button id="searchBtn">Tìm</button>
+                <button id="addProductBtn">Thêm sản phẩm</button>
+            </div>
+            
+            <!-- sản phẩm 1 -->
+            <article class="product-item">
+                <h3>Giày chạy bộ Nike Air Zoom Pegasus</h3>
+                <img src="data:image/jpeg;base64,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" alt="Giày chạy bộ Nike Air Zoom Pegasus">
+                <p>
+                    Giày chạy bộ với công nghệ đệm Air Zoom mang lại cảm giác êm ái và đàn hồi tốt. 
+                    Thiết kế thoáng khí, phù hợp cho cả chạy đường dài và tập luyện hàng ngày.
+                </p>
+                <p><strong>Giá:</strong> 2.500.000 VNĐ</p>
+            </article>
+
+            <!--sản phẩm 2 -->
+            <article class="product-item">
+                <h3>Giày bóng đá Adidas Predator</h3>
+                <img src="data:image/jpeg;base64,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" alt="Giày bóng đá Adidas Predator">
+                <p>
+                    Giày bóng đá chuyên nghiệp với công nghệ Controlframe giúp kiểm soát bóng tốt hơn. 
+                    Đế đinh AG phù hợp cho sân cỏ nhân tạo, mang lại độ bám và ổn định cao.
+                </p>
+                <p><strong>Giá:</strong> 3.200.000 VNĐ</p>
+            </article>
+
+            <!--sản phẩm 3 -->
+            <article class="product-item">
+                <h3>Giày tập gym Puma Cell</h3>
+                <img src="data:image/jpeg;base64,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" alt="Giày tập gym Puma Cell">
+                <p>
+                    Giày training đa năng với công nghệ Cell cushioning cung cấp độ đệm vượt trội. 
+                    Thiết kế ôm chân, hỗ trợ tốt cho các bài tập cardio và nâng tạ.
+                </p>
+                <p><strong>Giá:</strong> 1.800.000 VNĐ</p>
+            </article>
+        </section>
+
+        <!-- form thêm sản phẩm -->
+        <section>
+            <form id="addProductForm" class="hidden">
+                <h3>Thêm sản phẩm mới</h3>
+                
+                <label for="newName">Tên sản phẩm:</label>
+                <input type="text" id="newName" required>
+                <br><br>
+
+                <label for="newPrice">Giá:</label>
+                <input type="number" id="newPrice" required>
+                <br><br>
+
+                <label for="newDesc">Mô tả:</label>
+                <textarea id="newDesc" rows="3"></textarea>
+                <br><br>
+
+                <button type="submit">Thêm</button>
+                <button type="button" id="cancelBtn">Hủy</button>
+                <p id="errorMsg" style="color:red;"></p>
+            </form>
+        </section>
+
+        <!-- form đơn giản và form liên hệ -->
+        <section>
+            <h2>Liên hệ với chúng tôi</h2>
+            <p>Điền thông tin bên dưới để nhận tư vấn và ưu đãi đặc biệt từ Taga!</p>
+            
+            <form>
+                <!-- tên -->
+                <label for="name">Họ và tên:</label>
+                <input type="text" id="name" name="name" required>
+                <br><br>
+
+                <!-- email -->
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+                <br><br>
+
+                <!-- nội dung -->
+                <label for="message">Nội dung:</label>
+                <textarea id="message" name="message" rows="5" cols="50" required></textarea>
+                <br><br>
+
+                <!-- nút gửi -->
+                <button type="submit">Gửi</button>
+            </form>
+        </section>
+    </main>
+
+    <!-- footer -->
+    <footer>
+        <p><strong>Cửa hàng Giày Thể Thao Taga</strong></p>
+        <p>Địa chỉ: 1 Đại Cồ Việt, Hai Bà Trưng, Hà Nội</p>
+        <p>Điện thoại: 0123 456 789</p>
+        <p>&copy; 2025 Taga. Tất cả quyền được bảo lưu.</p>
+    </footer>
+    
+    <!-- nhúng file JavaScript -->
+    <script src="script.js"></script>
+</body>
+</html>
