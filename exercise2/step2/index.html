@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản lý người dùng</title>
+    <!-- thêm thư viện react qua CDN -->
+    <script src='https://unpkg.com/react@18/umd/react.development.js'></script>
+    <!-- thêm thư viện react-dom qua CDN -->
+    <script src='https://unpkg.com/react-dom@18/umd/react-dom.development.js'></script>
+    <!-- thêm babel compiler qua CDN để biên dịch JSX -->
+    <script src='https://unpkg.com/@babel/standalone/babel.min.js'></script>
+</head>
+<body>
+    <!-- container để react render vào -->
+    <div id='root'></div>
+
+    <!-- viết mã react với JSX, type="text/babel" để babel biên dịch -->
+    <script type="text/babel">
+        // component nhận input từ người dùng để tìm kiếm
+        function SearchForm({ onChangeValue }) {
+            return <div>SearchForm</div>;
+        }
+
+        // component form thêm người dùng mới
+        function AddUser({ onAdd }) {
+            return <div>AddUser</div>;
+        }
+
+        // component hiển thị, lọc, sửa, xóa người dùng
+        function ResultTable({ keyword, user, onAdded }) {
+            return <div>ResultTable</div>;
+        }
+
+        // component gốc quản lý toàn bộ state và truyền props xuống con
+        function App() {
+            // state lưu từ khóa tìm kiếm
+            const [kw, setKeyword] = React.useState("");
+            // state lưu người dùng mới
+            const [newUser, setNewUser] = React.useState(null);
+
+            return (
+                <div>
+                    <h1>Quản lý người dùng</h1>
+                    <SearchForm onChangeValue={setKeyword} />
+                    <AddUser onAdd={setNewUser} />
+                    <ResultTable keyword={kw} user={newUser} onAdded={() => setNewUser(null)} />
+                </div>
+            );
+        }
+
+        // tạo root element và render component App vào
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
+</body>
+</html>
+
