@@ -7,17 +7,17 @@ const Student = require('./Student');
 const app = express();
 const PORT = 5001;
 
-// Middleware
-app.use(cors()); // Cho phép frontend truy cập API
-app.use(express.json()); // Parse JSON request body
-app.use(bodyParser.json()); // Parse JSON với body-parser
+// middleware
+app.use(cors()); // cho phep frontend truy cap api
+app.use(express.json()); // parse json request body
+app.use(bodyParser.json()); // parse json voi body-parser
 
-// Kết nối MongoDB
+// ket noi mongodb
 mongoose.connect('mongodb://localhost:27017/student_db')
   .then(() => console.log("Đã kết nối MongoDB thành công"))
   .catch(err => console.error("Lỗi kết nối MongoDB:", err));
 
-// API lấy danh sách học sinh
+// api lay danh sach hoc sinh
 app.get('/api/students', async (req, res) => {
   try {
     const students = await Student.find();
@@ -27,7 +27,7 @@ app.get('/api/students', async (req, res) => {
   }
 });
 
-// API lấy thông tin 1 học sinh theo ID
+// api lay thong tin 1 hoc sinh theo id
 app.get('/api/students/:id', async (req, res) => {
   try {
     const student = await Student.findById(req.params.id);
@@ -40,7 +40,7 @@ app.get('/api/students/:id', async (req, res) => {
   }
 });
 
-// API thêm học sinh mới
+// api them hoc sinh moi
 app.post('/api/students', async (req, res) => {
   try {
     const newStudent = await Student.create(req.body);
@@ -50,7 +50,7 @@ app.post('/api/students', async (req, res) => {
   }
 });
 
-// API cập nhật học sinh
+// api cap nhat hoc sinh
 app.put('/api/students/:id', async (req, res) => {
   try {
     const updatedStu = await Student.findByIdAndUpdate(
@@ -67,7 +67,7 @@ app.put('/api/students/:id', async (req, res) => {
   }
 });
 
-// API xóa học sinh
+// api xoa hoc sinh
 app.delete('/api/students/:id', async (req, res) => {
   try {
     const id = req.params.id;
@@ -81,12 +81,12 @@ app.delete('/api/students/:id', async (req, res) => {
   }
 });
 
-// Route test cơ bản
+// route test co ban
 app.get('/', (req, res) => {
   res.json({ message: 'Backend Server đang chạy!' });
 });
 
-// Khởi động server
+// khoi dong server
 app.listen(PORT, () => {
   console.log(`Server đang chạy tại http://localhost:${PORT}`);
 });

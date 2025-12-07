@@ -9,6 +9,8 @@ function HomePage() {
   const [name, setName] = useState("");
   const [age, setAge] = useState("");
   const [stuClass, setStuClass] = useState("");
+  const [searchTerm, setSearchTerm] = useState("");
+  const [sortAsc, setSortAsc] = useState(true);
 
   useEffect(() => {
     axios.get('http://localhost:5001/api/students')
@@ -28,6 +30,16 @@ function HomePage() {
         setStuClass("");
       })
       .catch(err => console.error("Lỗi khi thêm:", err));
+  };
+
+  const handleDelete = (id) => {
+    if (!window.confirm("Bạn có chắc muốn xóa học sinh này?")) return;
+    axios.delete(`http://localhost:5001/api/students/${id}`)
+      .then(res => {
+        console.log(res.data.message);
+        setStudents(prevList => prevList.filter(s => s._id !== id));
+      })
+      .catch(err => console.error("Lỗi khi xóa:", err));
   };
 
   return (
@@ -67,21 +79,49 @@ function HomePage() {
         </form>
       </div>
 
+      <div style={{ marginBottom: '20px', textAlign: 'center' }}>
+        <input
+          type="text"
+          placeholder="Tìm kiếm theo tên..."
+          value={searchTerm}
+          onChange={e => setSearchTerm(e.target.value)}
+          style={{ padding: '10px', fontSize: '16px', width: '300px', borderRadius: '5px', border: '1px solid #ddd', marginRight: '10px' }}
+        />
+        <button 
+          onClick={() => setSortAsc(prev => !prev)}
+          style={{ padding: '10px 20px', fontSize: '16px', backgroundColor: '#FF9800', color: 'white', border: 'none', cursor: 'pointer', borderRadius: '5px' }}
+        >
+          Sắp xếp theo tên: {sortAsc ? 'A → Z' : 'Z → A'}
+        </button>
+      </div>
+
       <h2>Danh sách học sinh</h2>
       {students.length === 0 ? (
         <p>Chưa có học sinh nào</p>
       ) : (
-        <table border="1" style={{ margin: '0 auto', borderCollapse: 'collapse' }}>
-          <thead>
-            <tr>
-              <th style={{ padding: '10px' }}>Họ tên</th>
-              <th style={{ padding: '10px' }}>Tuổi</th>
-              <th style={{ padding: '10px' }}>Lớp</th>
-              <th style={{ padding: '10px' }}>Thao tác</th>
-            </tr>
-          </thead>
-          <tbody>
-            {students.map((student) => (
+        (() => {
+          const filteredStudents = students.filter(s =>
+            s.name.toLowerCase().includes(searchTerm.toLowerCase())
+          );
+          const sortedStudents = [...filteredStudents].sort((a, b) => {
+            if (a.name < b.name) return sortAsc ? -1 : 1;
+            if (a.name > b.name) return sortAsc ? 1 : -1;
+            return 0;
+          });
+          return sortedStudents.length === 0 ? (
+            <p>Không tìm thấy học sinh nào</p>
+          ) : (
+            <table border="1" style={{ margin: '0 auto', borderCollapse: 'collapse' }}>
+              <thead>
+                <tr>
+                  <th style={{ padding: '10px' }}>Họ tên</th>
+                  <th style={{ padding: '10px' }}>Tuổi</th>
+                  <th style={{ padding: '10px' }}>Lớp</th>
+                  <th style={{ padding: '10px' }}>Thao tác</th>
+                </tr>
+              </thead>
+              <tbody>
+                {sortedStudents.map((student) => (
               <tr key={student._id}>
                 <td style={{ padding: '10px' }}>{student.name}</td>
                 <td style={{ padding: '10px' }}>{student.age}</td>
@@ -89,15 +129,23 @@ function HomePage() {
                 <td style={{ padding: '10px' }}>
                   <button 
                     onClick={() => navigate(`/edit/${student._id}`)}
-                    style={{ padding: '5px 15px', backgroundColor: '#2196F3', color: 'white', border: 'none', cursor: 'pointer', borderRadius: '3px' }}
+                    style={{ padding: '5px 15px', backgroundColor: '#2196F3', color: 'white', border: 'none', cursor: 'pointer', borderRadius: '3px', marginRight: '5px' }}
                   >
                     Sửa
                   </button>
+                  <button 
+                    onClick={() => handleDelete(student._id)}
+                    style={{ padding: '5px 15px', backgroundColor: '#f44336', color: 'white', border: 'none', cursor: 'pointer', borderRadius: '3px' }}
+                  >
+                    Xóa
+                  </button>
                 </td>
               </tr>
-            ))}
-          </tbody>
-        </table>
+                ))}
+              </tbody>
+            </table>
+          );
+        })()
       )}
     </div>
   );
